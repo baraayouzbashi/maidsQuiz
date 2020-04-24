@@ -1,0 +1,17 @@
+.wrapper{
+  header{
+    background-color: #F3F3F3;
+    mat-form-field{
+      padding: 15px 0;
+      width: 80%;
+      right:10%;
+      left: 10%;
+    }
+  }
+  mat-nav-list{
+    padding: 15px 10%;
+  }
+  mat-paginator{
+    border-top: 1px solid;
+  }
+}

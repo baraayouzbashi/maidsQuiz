@@ -1,1 +1,25 @@
-<p>users-list works!</p>
+<div class="wrapper">
+  <header>
+    <mat-form-field>
+      <mat-label>Search Users by id</mat-label>
+      <input matInput type="text" placeholder="Ex. 1, 12, .." [(ngModel)]="value">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </header>
+
+    <mat-nav-list>
+      <mat-list-item *ngFor="let user of data?.data"
+                     (click)="goToUser(user)">
+        <img matListAvatar [src]="user.avatar" alt="user's avatar">
+        <h3 matLine>{{user.first_name + ' ' + user.last_name}}</h3>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-paginator [length]="data?.total"
+                   [pageSize]="data?.per_page"
+                   (page)="update($event)"
+                   hidePageSize="true">
+    </mat-paginator>
+</div>
