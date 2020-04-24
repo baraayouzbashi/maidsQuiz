@@ -11,7 +11,7 @@ import {RouterModule} from '@angular/router';
     CommonModule,
     RouterModule.forChild([
       {
-        path: ':id',
+        path: '**',
         component: UserDetailsComponent,
         data: {
           shouldDetach: true,
