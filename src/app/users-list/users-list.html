@@ -2,12 +2,25 @@
   <header>
     <mat-form-field>
       <mat-label>Search Users by id</mat-label>
-      <input matInput type="text" placeholder="Ex. 1, 12, .." [(ngModel)]="value">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <input matInput
+             type="text"
+             placeholder="Ex. 1, 12, .."
+             [formControl]="searchInput"
+             [matAutocomplete]="auto">
+      <button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchInput.reset('')">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
+    <mat-autocomplete #auto>
+      <mat-option *ngIf="filteredUser | async as user" [value]="user">
+        <ng-container>
+          {{user.data.id}} : {{ user.data.first_name }} {{user.data.last_name}}
+        </ng-container>
+      </mat-option>
+    </mat-autocomplete>
   </header>
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
   <ng-container *ngIf="data$ | async as d">
     <mat-nav-list>
