@@ -9,17 +9,21 @@
     </mat-form-field>
   </header>
 
+  <ng-container *ngIf="data$ | async as d">
     <mat-nav-list>
-      <mat-list-item *ngFor="let user of data?.data"
+      <mat-list-item *ngFor="let user of d.data"
                      (click)="goToUser(user)">
         <img matListAvatar [src]="user.avatar" alt="user's avatar">
         <h3 matLine>{{user.first_name + ' ' + user.last_name}}</h3>
       </mat-list-item>
     </mat-nav-list>
 
-    <mat-paginator [length]="data?.total"
-                   [pageSize]="data?.per_page"
-                   (page)="update($event)"
-                   hidePageSize="true">
+    <mat-paginator
+      [pageIndex]="d.page -1"
+      [length]="d.total"
+      [pageSize]="d.per_page"
+      (page)="updatePage($event)"
+      hidePageSize="true">
     </mat-paginator>
+  </ng-container>
 </div>

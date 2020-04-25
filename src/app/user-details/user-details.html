@@ -4,13 +4,15 @@
   <mat-icon>arrow_back</mat-icon>
 </button>
 
-<mat-card>
-  <mat-card-header>
-    <img mat-card-avatar class="avatar" [src]="avatar" alt="user's avatar" >
-    <mat-card-title>Id: {{id}}</mat-card-title>
-    <mat-card-subtitle>{{first_name + ' ' +last_name}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    {{email}}
-  </mat-card-content>
-</mat-card>
+<ng-container *ngIf="data$ | async as d">
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar class="avatar" [src]="d.data.avatar" alt="user's avatar">
+      <mat-card-title>Id: {{id}}</mat-card-title>
+      <mat-card-subtitle>{{d.data.first_name + ' ' + d.data.last_name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{d.data.email}}
+    </mat-card-content>
+  </mat-card>
+</ng-container>

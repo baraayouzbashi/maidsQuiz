@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Location} from '@angular/common';
+import {HttpService} from '../services/http.service';
+import {Observable} from 'rxjs';
+import {UserResponse} from '../Interfaces';
 
 @Component({
   selector: 'user-details',
@@ -12,20 +15,21 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private httpService: HttpService
   ) { }
 
   id;
-  avatar = 'https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg';
-  first_name = 'john';
-  last_name = 'smith';
-  email = 'some@one.com';
+  data$: Observable<UserResponse>;
+
   ngOnInit() {
     this.route.paramMap.subscribe(
-    (params: ParamMap) => {
-       this.id = params.get('id');
-    }
-  );
+      (params: ParamMap) => {
+        const id = params.get('id');
+        this.id = id;
+        this.data$ = this.httpService.getUser(id);
+      }
+    );
   }
 
   goBack = () => {
