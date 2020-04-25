@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div class="wrapper">
   <header>
     <mat-form-field>
@@ -11,16 +12,14 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <mat-autocomplete #auto>
-      <mat-option *ngIf="filteredUser | async as user" [value]="user">
-        <ng-container>
+    <mat-autocomplete #auto (optionSelected)="goToUser({id: $event.option.value})" >
+      <mat-option *ngIf="filteredUser | async as user" [value]="user.data.id">
+        <div class="pointerCursor" (click)="goToUser(user.data)">
           {{user.data.id}} : {{ user.data.first_name }} {{user.data.last_name}}
-        </ng-container>
+        </div>
       </mat-option>
     </mat-autocomplete>
   </header>
-
-  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
   <ng-container *ngIf="data$ | async as d">
     <mat-nav-list>
